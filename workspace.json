@@ -14,9 +14,7 @@
             "outputPath": "dist/apps/dumpster",
             "main": "apps/dumpster/src/main.ts",
             "tsConfig": "apps/dumpster/tsconfig.app.json",
-            "assets": [
-              "apps/dumpster/src/assets"
-            ]
+            "assets": ["apps/dumpster/src/assets"]
           },
           "configurations": {
             "production": {
@@ -46,10 +44,7 @@
               "apps/dumpster/tsconfig.app.json",
               "apps/dumpster/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/dumpster/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/dumpster/**/*"]
           }
         },
         "test": {
@@ -57,6 +52,33 @@
           "options": {
             "jestConfig": "apps/dumpster/jest.config.js",
             "tsConfig": "apps/dumpster/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dumpster-lib": {
+      "root": "libs/dumpster-lib",
+      "sourceRoot": "libs/dumpster-lib/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/dumpster-lib/tsconfig.lib.json",
+              "libs/dumpster-lib/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/dumpster-lib/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dumpster-lib/jest.config.js",
+            "tsConfig": "libs/dumpster-lib/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
