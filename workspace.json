@@ -14,7 +14,9 @@
             "outputPath": "dist/apps/dumpster",
             "main": "apps/dumpster/src/main.ts",
             "tsConfig": "apps/dumpster/tsconfig.app.json",
-            "assets": ["apps/dumpster/src/assets"]
+            "assets": [
+              "apps/dumpster/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -44,7 +46,10 @@
               "apps/dumpster/tsconfig.app.json",
               "apps/dumpster/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/dumpster/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dumpster/**/*"
+            ]
           }
         },
         "test": {
@@ -71,7 +76,10 @@
               "libs/dumpster-lib/tsconfig.lib.json",
               "libs/dumpster-lib/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/dumpster-lib/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/dumpster-lib/**/*"
+            ]
           }
         },
         "test": {
@@ -79,6 +87,67 @@
           "options": {
             "jestConfig": "libs/dumpster-lib/jest.config.js",
             "tsConfig": "libs/dumpster-lib/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dump-report": {
+      "root": "apps/dump-report",
+      "sourceRoot": "apps/dump-report/src",
+      "projectType": "application",
+      "prefix": "dump-report",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/dump-report",
+            "main": "apps/dump-report/src/main.ts",
+            "tsConfig": "apps/dump-report/tsconfig.app.json",
+            "assets": [
+              "apps/dump-report/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/dump-report/src/environments/environment.ts",
+                  "with": "apps/dump-report/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dump-report:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/dump-report/tsconfig.app.json",
+              "apps/dump-report/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dump-report/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dump-report/jest.config.js",
+            "tsConfig": "apps/dump-report/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
