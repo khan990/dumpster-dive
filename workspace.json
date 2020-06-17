@@ -1,8 +1,70 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "dumpster": {
+      "root": "apps/dumpster",
+      "sourceRoot": "apps/dumpster/src",
+      "projectType": "application",
+      "prefix": "dumpster",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/dumpster",
+            "main": "apps/dumpster/src/main.ts",
+            "tsConfig": "apps/dumpster/tsconfig.app.json",
+            "assets": [
+              "apps/dumpster/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/dumpster/src/environments/environment.ts",
+                  "with": "apps/dumpster/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dumpster:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/dumpster/tsconfig.app.json",
+              "apps/dumpster/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dumpster/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dumpster/jest.config.js",
+            "tsConfig": "apps/dumpster/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/node"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -62,5 +124,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultProject": "dumpster"
 }
