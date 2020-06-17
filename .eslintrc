@@ -1,51 +1,42 @@
+
 {
-  "env": {
-    "es6": true
-  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2017,
+    "ecmaVersion": 2018,
     "sourceType": "module",
-    "ecmaFeatures": {}
+    "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@typescript-eslint", "@nrwl/nx"],
+  "extends": [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'prettier/@typescript-eslint'
+  ],
   "rules": {
-    "no-cond-assign": 2,
-    "no-var": 1,
-    "prefer-const": 0,
-    "no-extra-parens": 0,
-    "no-dupe-keys": 2,
-    "no-undef": 2,
-    "no-unreachable": 2,
-    "eqeqeq": 1,
-    "keyword-spacing": 0,
-    "no-native-reassign": 2,
-    "no-redeclare": 2,
-    "radix": 1,
-    "indent": 0,
-    "quotes": [0, "single", "avoid-escape"],
-    "no-shadow": 2,
-    "no-unused-vars": 1,
-    "no-lonely-if": 1,
-    "no-use-before-define": 2,
-    "no-bitwise": 2,
-    "no-dupe-class-members": 2,
-    "guard-for-in": 1,
-    "consistent-return": 2,
-    "no-octal-escape": 2,
-    "no-constant-condition": 1,
-    "no-unused-expressions": 2
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-parameter-properties": "off",
+    "@nrwl/nx/enforce-module-boundaries": [
+      "error",
+      {
+        "enforceBuildableLibDependency": true,
+        "allow": [],
+        "depConstraints": [
+          { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
+        ]
+      }
+    ]
   },
-  "globals": {
-    "process": true,
-    "require": true,
-    "console": true,
-    "module": true,
-    "exports": true,
-    "setInterval": true,
-    "setTimeout": true,
-    "global": true,
-    "clearInterval": true,
-    "clearTimeout": true,
-    "__dirname": true,
-    "__pathname": true
-  }
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ]
 }
