@@ -1,6 +1,7 @@
-const chalk = require('chalk');
-const openDB = require('../lib/open-db');
-const fns = require('../lib/fns');
+import * as chalk from 'chalk';
+import { openDb as openDB } from '../lib/open-db';
+import * as fns from '../lib/fns';
+
 const mongoConfig = {
   ordered: false
 };
@@ -16,11 +17,11 @@ const writeMsg = function(pages, count, start, workerNum) {
   console.log(msg);
 };
 
-const writeDb = async (options, pages, workerNum) => {
+export const writeDb = async (options, pages, workerNum) => {
   const start = Date.now();
   const obj = await openDB(options);
 
-  const result = await obj.col.insertMany(pages, mongoConfig).catch(async err => {
+  const result = await (obj as any).col.insertMany(pages, mongoConfig).catch(async err => {
     if (err.code === 11000) {
       let errCount = err.result.getWriteErrorCount();
       errCount = fns.niceNumber(errCount);
@@ -35,14 +36,12 @@ const writeDb = async (options, pages, workerNum) => {
       const count = err.nInserted;
       writeMsg(pages, count, start, workerNum);
     }
-    await obj.client.close();
+    await (obj as any).client.close();
   });
   //no errors thrown, all good
   if (result) {
     const count = result.insertedCount;
     writeMsg(pages, count, start, workerNum);
-    await obj.client.close();
+    await (obj as any).client.close();
   }
 };
-
-module.exports = writeDb;
