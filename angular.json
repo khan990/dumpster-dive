@@ -1,7 +1,69 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "dumpster-dive": {
+      "root": "apps/dumpster-dive",
+      "sourceRoot": "apps/dumpster-dive/src",
+      "projectType": "application",
+      "prefix": "dumpster-dive",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/dumpster-dive",
+            "main": "apps/dumpster-dive/src/main.ts",
+            "tsConfig": "apps/dumpster-dive/tsconfig.app.json",
+            "assets": [
+              "apps/dumpster-dive/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/dumpster-dive/src/environments/environment.ts",
+                  "with": "apps/dumpster-dive/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dumpster-dive:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/dumpster-dive/tsconfig.app.json",
+              "apps/dumpster-dive/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dumpster-dive/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dumpster-dive/jest.config.js",
+            "tsConfig": "apps/dumpster-dive/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/node"
-  }
+  },
+  "defaultProject": "dumpster-dive"
 }
