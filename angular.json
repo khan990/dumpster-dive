@@ -60,6 +60,66 @@
           }
         }
       }
+    },
+    "dumpster-report": {
+      "root": "apps/dumpster-report",
+      "sourceRoot": "apps/dumpster-report/src",
+      "projectType": "application",
+      "prefix": "dumpster-report",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/dumpster-report",
+            "main": "apps/dumpster-report/src/main.ts",
+            "tsConfig": "apps/dumpster-report/tsconfig.app.json",
+            "assets": [
+              "apps/dumpster-report/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/dumpster-report/src/environments/environment.ts",
+                  "with": "apps/dumpster-report/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dumpster-report:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/dumpster-report/tsconfig.app.json",
+              "apps/dumpster-report/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dumpster-report/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dumpster-report/jest.config.js",
+            "tsConfig": "apps/dumpster-report/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

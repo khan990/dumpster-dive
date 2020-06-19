@@ -26,6 +26,9 @@
   "projects": {
     "dumpster-dive": {
       "tags": []
+    },
+    "dumpster-report": {
+      "tags": []
     }
   }
 }
