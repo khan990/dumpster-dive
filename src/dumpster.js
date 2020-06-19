@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-let dumpster = require('../src');
+let dumpster = require('./lib');
 let yargs = require('yargs');
 let argv = yargs
   .usage('dumpster <xml filepath> [options]')

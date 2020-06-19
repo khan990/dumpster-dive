@@ -1,6 +1,6 @@
 const chalk = require('chalk');
-const openDB = require('../lib/open-db');
-const fns = require('../lib/fns');
+const openDB = require('../db/open-db');
+const fns = require('../db/fns');
 const mongoConfig = {
   ordered: false
 };

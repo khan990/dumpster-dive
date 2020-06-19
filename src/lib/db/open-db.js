@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const config = require('../../config');
+const config = require('../../config/config');
 
 //create a database connection to mongo
 const openDb = async function (options) {

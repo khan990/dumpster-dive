@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const fs = require('fs');
-const config = require('../config');
+const config = require('../config/config');
 const cpuCount = require('os').cpus().length;
 
 const guardIO = function(options) {

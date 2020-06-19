@@ -4,7 +4,7 @@ const parsePage = require('./01-parsePage');
 const parseWiki = require('./02-parseWiki');
 const writeDb = require('./03-write-db');
 const jsonfn = require('jsonfn').JSONfn;
-const niceNum = require('../lib/fns').niceNumber;
+const niceNum = require('../db/fns').niceNumber;
 
 const doSection = async (optionStr, workerCount, workerNum) => {
   const options = jsonfn.parse(optionStr);

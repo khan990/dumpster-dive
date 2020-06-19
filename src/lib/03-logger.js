@@ -1,7 +1,7 @@
 const chalk = require('chalk');
-const openDB = require('./lib/open-db');
-const fns = require('./lib/fns');
-const config = require('../config');
+const openDB = require('./db/open-db');
+const fns = require('./db/fns');
+const config = require('../config/config');
 
 //a periodic status-logger for the import
 class Logger {

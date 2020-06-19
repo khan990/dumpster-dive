@@ -1,6 +1,6 @@
 const chalk = require('chalk');
-const openDb = require('../src/lib/open-db');
-const niceNumber = require('../src/lib/fns').niceNumber;
+const openDb = require('./lib/db/open-db');
+const niceNumber = require('./lib/db/fns').niceNumber;
 const dbName = process.argv[2] || 'enwiki';
 
 const showPage = async function(col) {
