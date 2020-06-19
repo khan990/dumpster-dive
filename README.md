@@ -48,7 +48,7 @@ dumpster({ file:'./enwiki-latest-pages-articles.xml', db:'enwiki'}, callback)
 
 ### Command-Line:
 ```bash
-dumpster /path/to/my-wikipedia-article-dump.xml --citations=false --html=true
+./dist/apps/dumpster-dive/main.js /path/to/my-wikipedia-article-dump.xml --citations=false --html=true
 ```
 
 *then check out the articles in mongo:*
@@ -98,7 +98,7 @@ The english wikipedia is around 60Gb.
 ### 5️⃣ OK, start it off
 ```bash
 #load it into mongo (10-15 minutes)
-dumpster ./afwiki-latest-pages-articles.xml
+./dist/apps/dumpster-dive/main.js ./afwiki-latest-pages-articles.xml
 ```
 ### 6️⃣ take a bath
 just put some [epsom salts](https://www.youtube.com/watch?v=QSlIHCu2Smw) in there, it feels great.
@@ -167,7 +167,7 @@ dumpster(obj, () => console.log('done!') )
 * **reducing file-size:**
 you can tell wtf_wikipedia what you want it to parse, and which data you don't need:
 ```bash
-dumpster ./my-wiki-dump.xml --infoboxes=false --citations=false --categories=false --links=false
+./dist/apps/dumpster/main.js ./my-wiki-dump.xml --infoboxes=false --citations=false --categories=false --links=false
 ```
 * **custom json formatting**
 you can grab whatever data you want, by passing-in a `custom` function. It takes a [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) `Doc` object, and you can return your cool data:
@@ -232,110 +232,43 @@ that should do the trick.
 This is an important project, come [help us out](./contributing.md).
 
 
+# Developement
 
+This project was reconfigured to use [Nx](https://nx.dev) workspace.
 
+There are two applications and one library:
 
+## Applications
+1. dumpster-dive
+2. dumpster-report
 
-
-
-
-
-
-# Dumpster
-
-This project was generated using [Nx](https://nx.dev).
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
-
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
-
-## Quick Start & Documentation
-
-[Nx Documentation](https://nx.dev/angular)
-
-[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
-
-[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
-
-## Adding capabilities to your workspace
-
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
-
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
-
-Below are our core plugins:
-
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
-
-## Generate an application
-
-Run `ng g @nrwl/angular:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are sharable across libraries and applications. They can be imported from `@dumpster/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
+## Library
+1. dumpster-lib
 
 ## Build
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Library is not publishable, therefore, it builds when the consuming project builds.
 
-## Running unit tests
+To build applications:
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+**dumpster**
+```
+nx build dumpster-dive
+```
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+**dump-report**
+```
+nx build dumpster-report
+```
 
-## Running end-to-end tests
+Similarly, to serve these projects:
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+**dumpster**
+```
+nx serve dumpster-dive
+```
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-## ☁ Nx Cloud
-
-### Computation Memoization in the Cloud
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+**dump-report**
+```
+nx serve dumpster-report
+```
