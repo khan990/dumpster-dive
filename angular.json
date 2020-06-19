@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "projects": {
+    "dumpster-dive": {
+      "root": "apps/dumpster-dive",
+      "sourceRoot": "apps/dumpster-dive/src",
+      "projectType": "application",
+      "prefix": "dumpster-dive",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/dumpster-dive",
+            "main": "apps/dumpster-dive/src/main.ts",
+            "tsConfig": "apps/dumpster-dive/tsconfig.app.json",
+            "assets": ["apps/dumpster-dive/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/dumpster-dive/src/environments/environment.ts",
+                  "with": "apps/dumpster-dive/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dumpster-dive:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/dumpster-dive/tsconfig.app.json",
+              "apps/dumpster-dive/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/dumpster-dive/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dumpster-dive/jest.config.js",
+            "tsConfig": "apps/dumpster-dive/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dumpster-report": {
+      "root": "apps/dumpster-report",
+      "sourceRoot": "apps/dumpster-report/src",
+      "projectType": "application",
+      "prefix": "dumpster-report",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/dumpster-report",
+            "main": "apps/dumpster-report/src/main.ts",
+            "tsConfig": "apps/dumpster-report/tsconfig.app.json",
+            "assets": ["apps/dumpster-report/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/dumpster-report/src/environments/environment.ts",
+                  "with": "apps/dumpster-report/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "dumpster-report:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/dumpster-report/tsconfig.app.json",
+              "apps/dumpster-report/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/dumpster-report/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dumpster-report/jest.config.js",
+            "tsConfig": "apps/dumpster-report/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dumpster-lib": {
+      "root": "libs/dumpster-lib",
+      "sourceRoot": "libs/dumpster-lib/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/dumpster-lib/tsconfig.lib.json",
+              "libs/dumpster-lib/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/dumpster-lib/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/dumpster-lib/jest.config.js",
+            "tsConfig": "libs/dumpster-lib/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/dumpster-lib",
+            "tsConfig": "libs/dumpster-lib/tsconfig.lib.json",
+            "packageJson": "libs/dumpster-lib/package.json",
+            "main": "libs/dumpster-lib/src/index.ts",
+            "assets": ["libs/dumpster-lib/*.md"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/node"
+  },
+  "defaultProject": "dumpster-dive"
+}
