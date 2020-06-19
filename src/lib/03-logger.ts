@@ -1,17 +1,23 @@
-const chalk = require('chalk');
-const openDB = require('./db/open-db');
-const fns = require('./db/fns');
-const config = require('../config/config');
+/* eslint-disable @typescript-eslint/camelcase */
+import * as chalk from 'chalk';
+import { openDb as openDB } from './db/open-db';
+import * as fns from './db/fns';
+import { config } from '../config/config';
 
 //a periodic status-logger for the import
 class Logger {
-  constructor(options) {
+
+  options: any;
+  wait: number;
+  please_stop: boolean;
+
+  constructor(options: any) {
     this.options = options;
     this.wait = config.logInterval;
     this.please_stop = false;
   }
-  open(cb) {
-    openDB(this.options.db, cb);
+  open(cb: any) {
+    openDB(this.options.db);
   }
   triggerNext() {
     setTimeout(() => {
@@ -25,11 +31,11 @@ class Logger {
     this.please_stop = true;
   }
   //# of records entered in db
-  count(obj) {
+  count(obj: any) {
     return obj.col.countDocuments();
   }
   //get the most recent article written
-  lastPage(obj) {
+  lastPage(obj: any) {
     return obj.col
       .find({})
       .sort({
@@ -56,7 +62,7 @@ class Logger {
       );
       console.log('');
     }
-    await obj.client.close();
+    await (obj as any).client.close();
     // console.timeEnd('stat')
     //fire the next one!
     if (!this.please_stop) {
@@ -65,7 +71,6 @@ class Logger {
   }
 }
 
-const hound = function(options) {
+export const hound = function(options: any) {
   return new Logger(options);
 };
-module.exports = hound;

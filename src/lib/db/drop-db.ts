@@ -1,11 +1,10 @@
-const openDb = require('./open-db');
+import { openDb } from './open-db';
 
 // helper to delete all records in a database
-const dropDb = async function(options) {
+export const dropDb = async function(options: any) {
   const obj = await openDb(options);
-  await obj.col.deleteMany({});
+  await (obj as any).col.deleteMany({});
   console.log('dropped');
-  const count = await obj.col.countDocuments();
+  const count = await (obj as any).col.countDocuments();
   console.log('  - now ' + count + ' records - ');
 };
-module.exports = dropDb;

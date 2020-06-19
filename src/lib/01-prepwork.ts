@@ -1,9 +1,10 @@
-const chalk = require('chalk');
-const fs = require('fs');
-const config = require('../config/config');
+/* eslint-disable @typescript-eslint/camelcase */
+import * as chalk from 'chalk';
+import * as fs from 'fs';
+import { config } from '../config/config';
 const cpuCount = require('os').cpus().length;
 
-const guardIO = function(options) {
+const guardIO = function(options: any) {
   if (!options.file || !fs.existsSync(options.file)) {
     console.log(chalk.red('\n  --can\'t find file:  "' + chalk.blue(options.file) + '" ---'));
     console.log(
@@ -19,7 +20,7 @@ const guardIO = function(options) {
 };
 
 //a little housework first, for our config object
-const prepWork = function(options) {
+export const prepWork = function(options: any) {
   options = options || {};
   options = Object.assign({}, options);
 
@@ -44,4 +45,3 @@ const prepWork = function(options) {
   });
   return options;
 };
-module.exports = prepWork;

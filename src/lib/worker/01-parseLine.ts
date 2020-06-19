@@ -10,7 +10,7 @@ const startPage = function() {
 };
 
 //brittle-but-fast interpreting of the xml file
-const parseLine = function(line, state, donePage) {
+export const parseLine = function(line: any, state: any, donePage: any) {
   //we're currently grabbing wikitext..
   if (state.inside === true) {
     //finish it!
@@ -60,4 +60,3 @@ const parseLine = function(line, state, donePage) {
   }
   return state;
 };
-module.exports = parseLine;

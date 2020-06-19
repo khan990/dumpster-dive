@@ -1,14 +1,16 @@
-const chalk = require('chalk');
+import * as chalk from 'chalk';
 const sundayDriver = require('sunday-driver');
-const parsePage = require('./01-parsePage');
-const parseWiki = require('./02-parseWiki');
-const writeDb = require('./03-write-db');
+import { parsePage } from './01-parsePage';
+import { parseWiki } from './02-parseWiki';
+import { writeDb } from './03-write-db';
 const jsonfn = require('jsonfn').JSONfn;
-const niceNum = require('../db/fns').niceNumber;
+const niceNum = require('../lib/fns').niceNumber;
 
-const doSection = async (optionStr, workerCount, workerNum) => {
+declare var process: any;
+
+export async function doSection(this: any, optionStr: any, workerCount: any, workerNum: any) {
   const options = jsonfn.parse(optionStr);
-  let pages = [];
+  let pages: any[] = [];
   const percent = 100 / workerCount;
   const start = percent * workerNum;
   const end = start + percent;
@@ -35,7 +37,7 @@ const doSection = async (optionStr, workerCount, workerNum) => {
     start: `${start}%`,
     end: `${end}%`,
     splitter: '</page>',
-    each: (xml, resume) => {
+    each: (xml: any, resume: any) => {
       // pull-out sections from this xml
       let page = parsePage(xml, this);
       if (page !== null) {
@@ -60,7 +62,7 @@ const doSection = async (optionStr, workerCount, workerNum) => {
     }
   };
   const p = sundayDriver(driver);
-  p.catch(err => {
+  p.catch((err: any) => {
     console.log(chalk.red('\n\n========== Worker error!  ====='));
     console.log('🚨       worker #' + workerNum + '           🚨');
     console.log(err);
@@ -81,8 +83,4 @@ const doSection = async (optionStr, workerCount, workerNum) => {
     });
   });
   return process.pid;
-};
-
-module.exports = {
-  doSection: doSection
 };

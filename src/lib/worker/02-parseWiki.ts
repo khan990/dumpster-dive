@@ -1,9 +1,9 @@
-const wtf = require('wtf_wikipedia');
-const chalk = require('chalk');
-const encode = require('./_encode');
+import * as wtf from 'wtf_wikipedia';
+import * as chalk from 'chalk';
+import { encodeStr } from './_encode';
 
 //doesn't support fancy things like &copy; to ©, etc
-const escapeXML = function (str) {
+const escapeXML = function (str: any) {
   return str
     .replace(/&apos;/g, "'")
     .replace(/&quot;/g, '"')
@@ -13,11 +13,11 @@ const escapeXML = function (str) {
 };
 
 //get parsed json from the wiki markup
-const parseWiki = function (page, options, worker) {
+export const parseWiki = function (page: any, options: any, worker: any) {
   try {
     page.wiki = escapeXML(page.wiki || '');
     // options.title = options.title || page.title
-    const doc = wtf(page.wiki, options);
+    const doc = wtf.default(page.wiki, options);
     //dont insert this if it's a redirect
     if (options.skip_redirects === true && doc.isRedirect()) {
       worker.counts.redirects += 1;
@@ -40,7 +40,7 @@ const parseWiki = function (page, options, worker) {
     //add-in the proper xml page-title
     doc.title(page.title);
     //turn the wtf_wikipedia document into storable json
-    let data = {};
+    let data: any = {};
     if (!options.custom) {
       //default format
       data = doc.json(options);
@@ -56,7 +56,7 @@ const parseWiki = function (page, options, worker) {
     data.title = data.title || page.title;
     data.pageID = data.pageID || page.pageID;
     data._id = data._id || data.title;
-    data._id = encode.encodeStr(data._id);
+    data._id = encodeStr(data._id);
     //create a fallback id, if none is found
     if (!data._id || data._id === true) {
       delete data._id;
@@ -68,5 +68,3 @@ const parseWiki = function (page, options, worker) {
     return null;
   }
 };
-
-module.exports = parseWiki;

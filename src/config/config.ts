@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable @typescript-eslint/camelcase */
+export const config = {
   //number of pages to write at a time, to the queue
   batch_size: 200,
   //the default name of the collection to write to

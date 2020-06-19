@@ -1,8 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
-const config = require('../../config/config');
+import { config } from '../../config/config';
 
 //create a database connection to mongo
-const openDb = async function (options) {
+export const openDb = async function (options: any) {
   if (!options.db) {
     console.warn('\n--missing db name--');
   }
@@ -10,8 +10,8 @@ const openDb = async function (options) {
 
   return new Promise((resolve, reject) => {
     MongoClient.connect(url, { useUnifiedTopology: true, useNewUrlParser: true }, function (
-      err,
-      client
+      err: any,
+      client: any
     ) {
       if (err) {
         console.log(err);
@@ -25,9 +25,7 @@ const openDb = async function (options) {
         col: collection,
         client: client
       };
-      resolve(obj, client);
+      resolve(obj);
     });
   });
 };
-
-module.exports = openDb;

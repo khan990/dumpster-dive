@@ -1,9 +1,11 @@
-#! /usr/bin/env node
-let dumpster = require('./lib');
-let yargs = require('yargs');
-let argv = yargs
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable @typescript-eslint/camelcase */
+// #! /usr/bin/env node
+import * as dumpster from './lib';
+import * as yargs from 'yargs';
+const argv = yargs
   .usage('dumpster <xml filepath> [options]')
-  .example('dumpster ./my/wikipedia-dump.xml --plaintext true --categories false')
+  .example('dumpster ./my/wikipedia-dump.xml --plaintext true --categories false', 'Example command')
   .describe('batch_size', 'how many articles to write to mongo at once [1000]')
   .describe('skip_disambig', 'avoid storing disambiguation pages [true]')
   .describe('skip_redirects', 'avoid storing redirect pages [true]')
@@ -35,16 +37,16 @@ const toBool = {
   false: false
 };
 
-let file = argv['_'][0];
+const file = argv['_'][0];
 //set defaults to given arguments
-let options = Object.assign({}, defaults);
+const options = Object.assign({}, defaults);
 Object.keys(options).forEach((k) => {
   if (argv.hasOwnProperty(k) && argv[k] !== undefined) {
     //coerce strings to booleans
-    if (toBool.hasOwnProperty(argv[k])) {
-      argv[k] = toBool[argv[k]];
+    if (toBool.hasOwnProperty(argv[k] as any)) {
+      argv[k] = Boolean(argv[k]);
     }
-    options[k] = argv[k];
+    (options as any)[k] = argv[k];
   }
 });
 
@@ -54,11 +56,11 @@ if (!file) {
   process.exit(1);
 }
 //try to make-up the language name for the db
-let db = 'wikipedia';
+let db: any = 'wikipedia';
 if (file.match(/-(latest|\d{8})-pages-articles/)) {
   db = file.match(/([a-z]+)-(latest|\d{8})-pages-articles/) || [];
   db = db[1] || 'wikipedia';
 }
-options.file = file;
-options.db = db;
-dumpster(options);
+(options as any).file = file;
+(options as any).db = db;
+dumpster.main(options, undefined);
