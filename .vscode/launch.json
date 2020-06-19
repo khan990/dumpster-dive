@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch dumpster-dive",
+        "type": "node",
+        "request": "launch",
+        "runtimeArgs": [
+            "-r",
+            "ts-node/register"
+        ],
+        "args": [
+            "${workspaceFolder}/apps/dumpster-dive/src/main.ts"
+        ]
+      },
+      {
+        "name": "Launch dumpster-report",
+        "type": "node",
+        "request": "launch",
+        "runtimeArgs": [
+            "-r",
+            "ts-node/register"
+        ],
+        "args": [
+            "${workspaceFolder}/apps/dumpster-report/src/main.ts"
+        ]
+      }
+    ]
+}
