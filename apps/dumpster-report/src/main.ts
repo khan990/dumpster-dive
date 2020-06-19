@@ -1,1 +1,1 @@
-console.log('Hello World! I am dumpster-report...');
+require('./app/report');

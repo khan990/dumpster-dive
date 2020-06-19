@@ -1,17 +1,23 @@
-const chalk = require('chalk');
-const openDB = require('./lib/open-db');
-const fns = require('./lib/fns');
-const config = require('../config');
+/* eslint-disable @typescript-eslint/camelcase */
+import * as chalk from 'chalk';
+import { openDb as openDB } from './lib/open-db';
+import * as fns from './lib/fns';
+import { config } from './config';
 
 //a periodic status-logger for the import
 class Logger {
+
+  options: any;
+  wait: number;
+  please_stop: boolean;
+
   constructor(options) {
     this.options = options;
     this.wait = config.logInterval;
     this.please_stop = false;
   }
   open(cb) {
-    openDB(this.options.db, cb);
+    openDB(this.options.db);
   }
   triggerNext() {
     setTimeout(() => {
@@ -56,7 +62,7 @@ class Logger {
       );
       console.log('');
     }
-    await obj.client.close();
+    await (obj as any).client.close();
     // console.timeEnd('stat')
     //fire the next one!
     if (!this.please_stop) {
@@ -65,7 +71,6 @@ class Logger {
   }
 }
 
-const hound = function(options) {
+export const hound = function(options) {
   return new Logger(options);
 };
-module.exports = hound;

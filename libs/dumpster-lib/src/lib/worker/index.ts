@@ -1,12 +1,12 @@
-const chalk = require('chalk');
-const sundayDriver = require('sunday-driver');
-const parsePage = require('./01-parsePage');
-const parseWiki = require('./02-parseWiki');
-const writeDb = require('./03-write-db');
+import * as chalk from 'chalk';
+import * as sundayDriver from 'sunday-driver';
+import { parsePage } from './01-parsePage';
+import { parseWiki } from './02-parseWiki';
+import { writeDb } from './03-write-db';
 const jsonfn = require('jsonfn').JSONfn;
 const niceNum = require('../lib/fns').niceNumber;
 
-const doSection = async (optionStr, workerCount, workerNum) => {
+export const doSection = async (optionStr, workerCount, workerNum) => {
   const options = jsonfn.parse(optionStr);
   let pages = [];
   const percent = 100 / workerCount;
@@ -81,8 +81,4 @@ const doSection = async (optionStr, workerCount, workerNum) => {
     });
   });
   return process.pid;
-};
-
-module.exports = {
-  doSection: doSection
 };

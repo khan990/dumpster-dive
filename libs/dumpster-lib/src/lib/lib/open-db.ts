@@ -1,8 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
-const config = require('../../config');
+import { config } from '../config';
 
 //create a database connection to mongo
-const openDb = async function (options) {
+export const openDb = async function (options) {
   if (!options.db) {
     console.warn('\n--missing db name--');
   }
@@ -25,9 +25,7 @@ const openDb = async function (options) {
         col: collection,
         client: client
       };
-      resolve(obj, client);
+      resolve(obj);
     });
   });
 };
-
-module.exports = openDb;
