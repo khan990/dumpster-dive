@@ -1,7 +1,7 @@
 const pretty = require('prettysize');
 const WorkerNodes = require('worker-nodes');
 import * as fs from 'fs';
-import * as chalk from 'chalk';
+const chalk = require('chalk');
 import { EventEmitter } from 'events';
 import * as fns from './db/fns';
 const jsonfn = require('jsonfn').JSONfn;
@@ -77,17 +77,18 @@ export class WorkerPool extends EventEmitter {
   }
 
   start() {
+    const self = this;
     const options = this.options;
     this.printHello();
     //convoluted loop to wire-up each worker
-    for (let i = 0; i < this.workerCount; i += 1) {
+    for (let i = 0; i < self.workerCount; i += 1) {
       //stringify options, so it gets passed to the web worker
       const optionStr = jsonfn.stringify(options);
-      this.workerNodes.call.doSection(optionStr, this.workerCount, i).then(() => {
-        this.running += 1;
+      self.workerNodes.call.doSection(optionStr, this.workerCount, i).then(() => {
+        self.running += 1;
         //once all workers have been started..
-        if (this.running === this.workerCount) {
-          this.listen();
+        if (self.running === self.workerCount) {
+          self.listen();
         }
       });
     }

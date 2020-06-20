@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 //stream a big wikipedia xml.bz2 file into mongodb
 //  because why not.
-import * as chalk from 'chalk';
+const chalk = require('chalk');
 import { prepWork as prelim } from './01-prepwork';
 import { WorkerPool } from './02-Worker-pool';
 import { hound } from './03-logger';

@@ -1,6 +1,6 @@
 const test = require('tape');
 const db = require('./db');
-const dumpster = require('../src/lib');
+const dumpster = require('../bin/lib').main;
 
 test('custom-made-tinywiki', function(t) {
   const dbName = 'tempwiki';

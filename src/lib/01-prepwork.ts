@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import * as chalk from 'chalk';
+const chalk = require('chalk');
 import * as fs from 'fs';
 import { config } from '../config/config';
 const cpuCount = require('os').cpus().length;

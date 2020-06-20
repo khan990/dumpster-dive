@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug dumpster.js",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--nolazy", 
+                "-r", 
+                "ts-node/register"
+            ],
+      
+            "args": [
+                "src/dumpster.ts",
+                "./tests/tinywiki-latest-pages-articles.xml"
+            ],
+            
+            "cwd": "${workspaceRoot}",
+            "internalConsoleOptions": "openOnFirstSessionStart",
+            "skipFiles": ["<node_internals>/**", "node_modules/**"],
+            "console": "internalConsole"
+        },
+        {
+            "name": "Debug report.js",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "node",
+            "runtimeArgs": ["--nolazy", "-r", "ts-node/register/transpile-only"],
+      
+            "args": ["src/report.ts"],
+            
+            "cwd": "${workspaceRoot}",
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": ["<node_internals>/**", "node_modules/**"]
+        }
+    ]
+}

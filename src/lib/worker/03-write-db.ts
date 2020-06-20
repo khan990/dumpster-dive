@@ -1,4 +1,4 @@
-import * as chalk from 'chalk';
+const chalk = require('chalk');
 import { openDb as openDB } from '../db/open-db';
 import * as fns from '../db/fns';
 

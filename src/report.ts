@@ -1,4 +1,4 @@
-import * as chalk from 'chalk';
+const chalk = require('chalk');
 import { openDb } from './lib/db/open-db';
 import * as fns from './lib/db/fns';
 const niceNumber = fns.niceNumber;

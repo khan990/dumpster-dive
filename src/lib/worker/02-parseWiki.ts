@@ -1,5 +1,5 @@
 import * as wtf from 'wtf_wikipedia';
-import * as chalk from 'chalk';
+const chalk = require('chalk');
 import { encodeStr } from './_encode';
 
 //doesn't support fancy things like &copy; to ©, etc
