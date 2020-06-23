@@ -49,31 +49,27 @@ const doSection = async (optionStr, workerCount, workerNum) => {
         page = parseWiki(page, options, this);
         if (page !== null) {
           let hasAList = false;
-          page.coordinates = undefined;
-          page.infoboxes = undefined;
-          page.images = undefined;
-          page.references = undefined;
+          
           if (page.sections != null && page.sections.length > 0) {
+            Object.keys(page).forEach((key) => {
+              if (key != 'sections' && key != 'title' && key != '_id' && key != 'pageID') {
+                page[key] = undefined;
+              }
+            })
+
             page.sections.forEach((section) => {
-              if (section.paragraphs) {
-                section.paragraphs = undefined;
-              }
-              if (section.templates) {
-                section.templates = undefined;
-              }
-              if (section.infoboxes) {
-                section.infoboxes = undefined;
-              }
-              if (section.references) {
-                section.references = undefined;
-              }
+              Object.keys(section).forEach((key) => {
+                if (key !== 'lists') {
+                  section[key] = undefined;
+                }
+              })
               if (section.lists) {
                 hasAList = true;
               }
             });
-          }
-          if (hasAList) {
-            pages.push(page);
+            if (hasAList) {
+              pages.push(page);
+            }
           }
         }
       }
