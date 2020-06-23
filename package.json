@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "chalk": "4.0.0",
+    "json-stringify-pretty-compact": "^2.0.0",
     "jsonfn": "0.31.0",
     "mongodb": "3.5.6",
     "prettysize": "2.0.0",

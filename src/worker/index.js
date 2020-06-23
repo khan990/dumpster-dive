@@ -5,6 +5,9 @@ const parseWiki = require('./02-parseWiki');
 const writeDb = require('./03-write-db');
 const jsonfn = require('jsonfn').JSONfn;
 const niceNum = require('../lib/fns').niceNumber;
+const stringify = require('json-stringify-pretty-compact');
+const { string } = require('yargs');
+const fs = require('fs');
 
 const doSection = async (optionStr, workerCount, workerNum) => {
   const options = jsonfn.parse(optionStr);
@@ -45,13 +48,17 @@ const doSection = async (optionStr, workerCount, workerNum) => {
         //parse the page into json
         page = parseWiki(page, options, this);
         if (page !== null) {
+          page.coordinates = undefined;
+          page.infoboxes = undefined;
+          page.images = undefined;
+          page.references = undefined;
           pages.push(page);
         }
       }
       if (pages.length >= options.batch_size) {
-        writeDb(options, pages, workerNum).then(() => {
-          this.counts.pages += pages.length;
-          pages = [];
+        fs.appendFile('lists.json', stringify(pages), function (err) {
+          if (err) throw err;
+          console.log('Updated!');
           resume();
         });
       } else {
@@ -71,7 +78,11 @@ const doSection = async (optionStr, workerCount, workerNum) => {
     clearInterval(this.logger);
     // insert the remaining pages
     if (pages.length > 0) {
-      await writeDb(options, pages, workerNum);
+      // await writeDb(options, pages, workerNum);
+      fs.appendFile('lists.json', stringify(pages), function (err) {
+        if (err) throw err;
+        console.log('Updated and End!');
+      });
     }
     console.log('\n');
     console.log(`    💪  worker #${workerNum} has finished 💪 `);
