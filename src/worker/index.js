@@ -48,11 +48,33 @@ const doSection = async (optionStr, workerCount, workerNum) => {
         //parse the page into json
         page = parseWiki(page, options, this);
         if (page !== null) {
+          let hasAList = false;
           page.coordinates = undefined;
           page.infoboxes = undefined;
           page.images = undefined;
           page.references = undefined;
-          pages.push(page);
+          if (page.sections != null && page.sections.length > 0) {
+            page.sections.forEach((section) => {
+              if (section.paragraphs) {
+                section.paragraphs = undefined;
+              }
+              if (section.templates) {
+                section.templates = undefined;
+              }
+              if (section.infoboxes) {
+                section.infoboxes = undefined;
+              }
+              if (section.references) {
+                section.references = undefined;
+              }
+              if (section.lists) {
+                hasAList = true;
+              }
+            });
+          }
+          if (hasAList) {
+            pages.push(page);
+          }
         }
       }
       if (pages.length >= options.batch_size) {
